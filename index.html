@@ -214,6 +214,7 @@
         .top-bar-right {
             display: flex;
             gap: 20px;
+            align-items: center;
         }
 
         .top-bar-right a {
@@ -222,10 +223,200 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            cursor: pointer;
         }
 
         .top-bar-right a:hover {
             color: var(--gold);
+        }
+
+        /* Search Modal */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search-overlay.active {
+            display: flex;
+        }
+
+        .search-modal {
+            width: 90%;
+            max-width: 600px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .search-modal h3 {
+            color: var(--navy);
+            margin-bottom: 20px;
+        }
+
+        .search-input-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .search-input-group input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--gray-mid);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .search-input-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .search-results {
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .search-result-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--gray-mid);
+            cursor: pointer;
+        }
+
+        .search-result-item:hover {
+            background: var(--gray-light);
+        }
+
+        .search-result-item h4 {
+            margin-bottom: 4px;
+            color: var(--navy);
+        }
+
+        .search-result-item p {
+            font-size: 12px;
+            color: var(--gray-dark);
+        }
+
+        .close-search {
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        /* Student Portal Modal */
+        .portal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .portal-overlay.active {
+            display: flex;
+        }
+
+        .portal-modal {
+            width: 90%;
+            max-width: 450px;
+            background: var(--white);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .portal-modal h3 {
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .portal-modal p {
+            color: var(--gray-dark);
+            margin-bottom: 24px;
+            font-size: 14px;
+        }
+
+        .portal-input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .portal-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        .portal-input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--gray-mid);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .portal-input-group input:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .login-btn {
+            width: 100%;
+            background: var(--navy);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+        }
+
+        .login-btn:hover {
+            background: var(--navy-light);
+        }
+
+        .portal-links {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .portal-links a {
+            color: var(--gold);
+        }
+
+        .close-portal {
+            background: var(--gray-light);
+            color: var(--gray-darker);
+            border: none;
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 16px;
+            width: 100%;
         }
 
         /* Main Header */
@@ -1263,6 +1454,29 @@
             opacity: 1;
         }
 
+        /* Notification Toast */
+        .notification-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--navy);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 2000;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification-toast.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             .hero h1 { font-size: 44px; }
@@ -1301,6 +1515,48 @@
 <!-- Skip to content link for accessibility -->
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
+<!-- Search Modal -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-modal">
+        <i class="fas fa-search" style="font-size: 48px; color: var(--gold); margin-bottom: 16px;"></i>
+        <h3>Search Jessica School</h3>
+        <div class="search-input-group">
+            <input type="text" id="searchInput" placeholder="Search for programmes, faculty, events..." autocomplete="off">
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+        </div>
+        <div id="searchResults" class="search-results"></div>
+        <button class="close-search" id="closeSearch">Close</button>
+    </div>
+</div>
+
+<!-- Student Portal Modal -->
+<div class="portal-overlay" id="portalOverlay">
+    <div class="portal-modal">
+        <i class="fas fa-user-graduate" style="font-size: 48px; color: var(--gold); margin-bottom: 16px;"></i>
+        <h3>Student Portal</h3>
+        <p>Access your courses, grades, and resources</p>
+        <div class="portal-input-group">
+            <label>Student ID / Email</label>
+            <input type="email" id="portalEmail" placeholder="student@nolan.edu">
+        </div>
+        <div class="portal-input-group">
+            <label>Password</label>
+            <input type="password" id="portalPassword" placeholder="••••••••">
+        </div>
+        <button class="login-btn" id="portalLoginBtn">Login</button>
+        <div class="portal-links">
+            <a href="#" id="forgotPassword">Forgot Password?</a>
+            <a href="#" id="createAccount">Create Account</a>
+        </div>
+        <button class="close-portal" id="closePortal">Cancel</button>
+    </div>
+</div>
+
+<!-- Notification Toast -->
+<div class="notification-toast" id="notificationToast">
+    <i class="fas fa-check-circle" style="margin-right: 8px;"></i> <span id="toastMessage">Message</span>
+</div>
+
 <!-- Top Bar -->
 <div class="top-bar">
     <div class="container">
@@ -1309,10 +1565,10 @@
             <span><i class="fas fa-envelope"></i> jessica@nolan.edu</span>
         </div>
         <div class="top-bar-right">
-            <a href="#"><i class="fas fa-user"></i> Student Portal</a>
-            <a href="#"><i class="fas fa-chalkboard-user"></i> Faculty & Staff</a>
-            <a href="#"><i class="fas fa-graduation-cap"></i> Alumni</a>
-            <a href="#"><i class="fas fa-search"></i></a>
+            <a href="#" id="studentPortalBtn"><i class="fas fa-user"></i> Student Portal</a>
+            <a href="#" id="facultyStaffBtn"><i class="fas fa-chalkboard-user"></i> Faculty & Staff</a>
+            <a href="#" id="alumniBtn"><i class="fas fa-graduation-cap"></i> Alumni</a>
+            <a href="#" id="searchBtnTop"><i class="fas fa-search"></i> Search</a>
         </div>
     </div>
 </div>
@@ -1455,7 +1711,7 @@
     </div>
 </section>
 
-<!-- Programmes Preview Section -->
+<!-- Programmes Preview Section (Condensed for brevity - same as before) -->
 <section class="section programmes-preview">
     <div class="container">
         <div class="section-header">
@@ -1464,133 +1720,39 @@
             <p class="section-subtitle">Undergraduate, postgraduate, and executive education for wealth creators and protectors</p>
         </div>
         
-        <!-- Tab Navigation -->
         <div class="programme-tabs">
             <button class="tab-btn active" data-tab="undergrad">Undergraduate</button>
             <button class="tab-btn" data-tab="postgrad">Postgraduate</button>
             <button class="tab-btn" data-tab="exec">Executive & Certificate</button>
         </div>
         
-        <!-- Undergraduate Tab -->
         <div class="tab-content active" id="undergrad">
             <div class="programme-grid">
-                <div class="programme-card">
-                    <div class="programme-badge">BSc</div>
-                    <h3>Wealth Management</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div>
-                    <p>Comprehensive training in wealth management, portfolio construction, and client advisory for high-net-worth individuals.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">BSc</div>
-                    <h3>Asset & Investment Management</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div>
-                    <p>Focus on asset allocation, investment strategies, portfolio management, and performance measurement.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">BSc</div>
-                    <h3>Wealth & Estate Planning</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div>
-                    <p>Specialised training in estate planning, trust structures, succession planning, and intergenerational wealth transfer.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">LLB / BSc</div>
-                    <h3>Law with Wealth Creation</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div>
-                    <p>Combined law degree with specialisation in wealth law, tax planning, and private client advisory.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
+                <div class="programme-card"><div class="programme-badge">BSc</div><h3>Wealth Management</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div><p>Comprehensive training in wealth management, portfolio construction, and client advisory for high-net-worth individuals.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">BSc</div><h3>Asset & Investment Management</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div><p>Focus on asset allocation, investment strategies, portfolio management, and performance measurement.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">BSc</div><h3>Wealth & Estate Planning</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div><p>Specialised training in estate planning, trust structures, succession planning, and intergenerational wealth transfer.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">LLB / BSc</div><h3>Law with Wealth Creation</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–4 years</span><span><i class="fas fa-user-graduate"></i> Full-time</span></div><p>Combined law degree with specialisation in wealth law, tax planning, and private client advisory.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
             </div>
         </div>
         
-        <!-- Postgraduate Tab -->
         <div class="tab-content" id="postgrad">
             <div class="programme-grid">
-                <div class="programme-card">
-                    <div class="programme-badge">MSc</div>
-                    <h3>Wealth Management</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div>
-                    <p>Advanced study of wealth management strategies, client advisory, and portfolio construction for HNWIs.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">MSc</div>
-                    <h3>Private Wealth Advisory</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div>
-                    <p>Deep dive into private wealth management, family office advisory, and ultra-high-net-worth client strategies.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">MSc</div>
-                    <h3>Wealth Law & Taxation</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div>
-                    <p>Specialised training in wealth law, tax planning, trust structures, and cross-border wealth management.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">MBA</div>
-                    <h3>Wealth Creation & Family Office</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div>
-                    <p>MBA track focused on wealth creation strategies, family office management, and entrepreneurial wealth.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">MSc</div>
-                    <h3>Philanthropy & Impact Investing</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div>
-                    <p>Focus on strategic philanthropy, impact investing, ESG, and social wealth creation.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
+                <div class="programme-card"><div class="programme-badge">MSc</div><h3>Wealth Management</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div><p>Advanced study of wealth management strategies, client advisory, and portfolio construction for HNWIs.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">MSc</div><h3>Private Wealth Advisory</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div><p>Deep dive into private wealth management, family office advisory, and ultra-high-net-worth client strategies.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">MSc</div><h3>Wealth Law & Taxation</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div><p>Specialised training in wealth law, tax planning, trust structures, and cross-border wealth management.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">MBA</div><h3>Wealth Creation & Family Office</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div><p>MBA track focused on wealth creation strategies, family office management, and entrepreneurial wealth.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">MSc</div><h3>Philanthropy & Impact Investing</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 1–2 years</span><span><i class="fas fa-user-graduate"></i> Full/Part-time</span></div><p>Focus on strategic philanthropy, impact investing, ESG, and social wealth creation.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
             </div>
         </div>
         
-        <!-- Executive Tab -->
         <div class="tab-content" id="exec">
             <div class="programme-grid">
-                <div class="programme-card">
-                    <div class="programme-badge">Diploma</div>
-                    <h3>Professional Diploma in Wealth Management</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 6–12 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div>
-                    <p>Comprehensive professional qualification for wealth management practitioners.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">Diploma</div>
-                    <h3>Professional Diploma in Wealth Law</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 6–12 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div>
-                    <p>Specialised qualification for lawyers focusing on private wealth and estate planning.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">Certificate</div>
-                    <h3>Certificate in Family Office Management</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div>
-                    <p>Focused training for family office professionals and next-generation family members.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">Certificate</div>
-                    <h3>Certificate in Estate & Trust Planning</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div>
-                    <p>Specialised certification for estate planners and trust advisors.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">Certificate</div>
-                    <h3>Certificate in Philanthropy Advisory</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div>
-                    <p>Training for advisors specialising in philanthropic planning and foundation management.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
-                <div class="programme-card">
-                    <div class="programme-badge">Executive</div>
-                    <h3>Executive Programme for Wealth Lawyers</h3>
-                    <div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Executive</span></div>
-                    <p>Advanced programme for practising lawyers specialising in private wealth.</p>
-                    <div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div>
-                </div>
+                <div class="programme-card"><div class="programme-badge">Diploma</div><h3>Professional Diploma in Wealth Management</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 6–12 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div><p>Comprehensive professional qualification for wealth management practitioners.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">Diploma</div><h3>Professional Diploma in Wealth Law</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 6–12 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div><p>Specialised qualification for lawyers focusing on private wealth and estate planning.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">Certificate</div><h3>Certificate in Family Office Management</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div><p>Focused training for family office professionals and next-generation family members.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">Certificate</div><h3>Certificate in Estate & Trust Planning</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div><p>Specialised certification for estate planners and trust advisors.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">Certificate</div><h3>Certificate in Philanthropy Advisory</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Hybrid</span></div><p>Training for advisors specialising in philanthropic planning and foundation management.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
+                <div class="programme-card"><div class="programme-badge">Executive</div><h3>Executive Programme for Wealth Lawyers</h3><div class="programme-meta"><span><i class="fas fa-clock"></i> 3–6 months</span><span><i class="fas fa-laptop"></i> Executive</span></div><p>Advanced programme for practising lawyers specialising in private wealth.</p><div class="programme-footer"><a href="#" class="programme-link">Learn More <i class="fas fa-arrow-right"></i></a></div></div>
             </div>
         </div>
         
@@ -1609,21 +1771,9 @@
             <p class="section-subtitle">Real experiences from the Jessica School community</p>
         </div>
         <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
-                <p class="testimonial-text">"The wealth law programme gave me the edge I needed. I now advise UHNW families on cross-border wealth structuring."</p>
-                <div class="testimonial-author"><div class="author-image"><i class="fas fa-user-circle"></i></div><div><h4>Michael T.</h4><span>MSc Wealth Law '24</span></div></div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
-                <p class="testimonial-text">"I came from a finance background. The Jessica School taught me how to truly serve wealthy families, not just manage their money."</p>
-                <div class="testimonial-author"><div class="author-image"><i class="fas fa-user-circle"></i></div><div><h4>Sarah K.</h4><span>MSc Wealth Management '25</span></div></div>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
-                <p class="testimonial-text">"The family office certificate transformed how I run my family's multi-generational wealth."</p>
-                <div class="testimonial-author"><div class="author-image"><i class="fas fa-user-circle"></i></div><div><h4>David C.</h4><span>Certificate in Family Office '24</span></div></div>
-            </div>
+            <div class="testimonial-card"><div class="testimonial-quote"><i class="fas fa-quote-left"></i></div><p class="testimonial-text">"The wealth law programme gave me the edge I needed. I now advise UHNW families on cross-border wealth structuring."</p><div class="testimonial-author"><div class="author-image"><i class="fas fa-user-circle"></i></div><div><h4>Michael T.</h4><span>MSc Wealth Law '24</span></div></div></div>
+            <div class="testimonial-card"><div class="testimonial-quote"><i class="fas fa-quote-left"></i></div><p class="testimonial-text">"I came from a finance background. The Jessica School taught me how to truly serve wealthy families, not just manage their money."</p><div class="testimonial-author"><div class="author-image"><i class="fas fa-user-circle"></i></div><div><h4>Sarah K.</h4><span>MSc Wealth Management '25</span></div></div></div>
+            <div class="testimonial-card"><div class="testimonial-quote"><i class="fas fa-quote-left"></i></div><p class="testimonial-text">"The family office certificate transformed how I run my family's multi-generational wealth."</p><div class="testimonial-author"><div class="author-image"><i class="fas fa-user-circle"></i></div><div><h4>David C.</h4><span>Certificate in Family Office '24</span></div></div></div>
         </div>
         <div class="section-cta"><a href="#" class="btn btn-secondary">Read More Stories <i class="fas fa-arrow-right"></i></a></div>
     </div>
@@ -1769,96 +1919,251 @@
 </footer>
 
 <script>
-    // Mobile menu toggle
-    const menuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileNav = document.querySelector('.mobile-nav');
-    if (menuBtn && mobileNav) {
-        menuBtn.addEventListener('click', function() {
-            mobileNav.classList.toggle('show');
-            const expanded = mobileNav.classList.contains('show');
-            menuBtn.setAttribute('aria-expanded', expanded);
-        });
-    }
-    
-    // Programme tabs
-    const tabBtns = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    if (tabBtns.length) {
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const tabId = this.getAttribute('data-tab');
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                this.classList.add('active');
-                const activeTab = document.getElementById(tabId);
-                if (activeTab) activeTab.classList.add('active');
+    (function() {
+        // ========================================
+        // 1. Mobile Menu Toggle
+        // ========================================
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileNav = document.querySelector('.mobile-nav');
+        if (menuBtn && mobileNav) {
+            menuBtn.addEventListener('click', function() {
+                mobileNav.classList.toggle('show');
+                const expanded = mobileNav.classList.contains('show');
+                menuBtn.setAttribute('aria-expanded', expanded);
+            });
+        }
+
+        // ========================================
+        // 2. Programme Tabs
+        // ========================================
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        if (tabBtns.length) {
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    const activeTab = document.getElementById(tabId);
+                    if (activeTab) activeTab.classList.add('active');
+                });
+            });
+        }
+
+        // ========================================
+        // 3. Search Engine Functionality
+        // ========================================
+        const searchOverlay = document.getElementById('searchOverlay');
+        const searchBtnTop = document.getElementById('searchBtnTop');
+        const searchBtn = document.getElementById('searchBtn');
+        const closeSearch = document.getElementById('closeSearch');
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+
+        const searchableContent = [
+            { title: "BSc Wealth Management", category: "Programme", description: "Comprehensive training in wealth management and portfolio construction", link: "#" },
+            { title: "BSc Asset & Investment Management", category: "Programme", description: "Asset allocation, investment strategies, portfolio management", link: "#" },
+            { title: "BSc Wealth & Estate Planning", category: "Programme", description: "Estate planning, trust structures, succession planning", link: "#" },
+            { title: "LLB Law with Wealth Creation", category: "Programme", description: "Combined law degree with wealth law specialisation", link: "#" },
+            { title: "MSc Wealth Management", category: "Programme", description: "Advanced wealth management strategies for HNWIs", link: "#" },
+            { title: "MSc Private Wealth Advisory", category: "Programme", description: "Private wealth management and family office advisory", link: "#" },
+            { title: "MSc Wealth Law & Taxation", category: "Programme", description: "Wealth law, tax planning, trust structures", link: "#" },
+            { title: "MBA Wealth Creation & Family Office", category: "Programme", description: "Wealth creation and family office management", link: "#" },
+            { title: "Jessica", category: "Founder", description: "Founder of Jessica School - Wealth strategist and lawyer", link: "#" },
+            { title: "Family Office Management Certificate", category: "Certificate", description: "Training for family office professionals", link: "#" },
+            { title: "Estate & Trust Planning Certificate", category: "Certificate", description: "Certification for estate planners", link: "#" },
+            { title: "Virtual Open House", category: "Event", description: "Meet faculty and learn about programmes", link: "#" },
+            { title: "Wealth Planning Workshop", category: "Event", description: "Hands-on workshop with industry experts", link: "#" },
+            { title: "Scholarships", category: "Admissions", description: "Financial aid and scholarship opportunities", link: "#" }
+        ];
+
+        function performSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            if (query === "") {
+                searchResults.innerHTML = '<p style="text-align:center; color: var(--gray-dark);">Type something to search...</p>';
+                return;
+            }
+            const results = searchableContent.filter(item => 
+                item.title.toLowerCase().includes(query) || 
+                item.description.toLowerCase().includes(query) ||
+                item.category.toLowerCase().includes(query)
+            );
+            if (results.length === 0) {
+                searchResults.innerHTML = '<p style="text-align:center; color: var(--gray-dark);">No results found. Try different keywords.</p>';
+                return;
+            }
+            searchResults.innerHTML = results.map(item => `
+                <div class="search-result-item" onclick="window.location.href='${item.link}'">
+                    <h4>${item.title}</h4>
+                    <p>${item.category} - ${item.description.substring(0, 100)}${item.description.length > 100 ? '...' : ''}</p>
+                </div>
+            `).join('');
+        }
+
+        function openSearch() {
+            searchOverlay.classList.add('active');
+            searchInput.value = '';
+            searchResults.innerHTML = '<p style="text-align:center; color: var(--gray-dark);">Type something to search...</p>';
+            searchInput.focus();
+        }
+
+        function closeSearchModal() {
+            searchOverlay.classList.remove('active');
+        }
+
+        if (searchBtnTop) searchBtnTop.addEventListener('click', openSearch);
+        if (searchBtn) searchBtn.addEventListener('click', performSearch);
+        if (closeSearch) closeSearch.addEventListener('click', closeSearchModal);
+        if (searchInput) searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
+        searchOverlay?.addEventListener('click', (e) => { if (e.target === searchOverlay) closeSearchModal(); });
+
+        // ========================================
+        // 4. Student Portal Functionality
+        // ========================================
+        const portalOverlay = document.getElementById('portalOverlay');
+        const studentPortalBtn = document.getElementById('studentPortalBtn');
+        const closePortal = document.getElementById('closePortal');
+        const portalLoginBtn = document.getElementById('portalLoginBtn');
+        const portalEmail = document.getElementById('portalEmail');
+        const portalPassword = document.getElementById('portalPassword');
+        const notificationToast = document.getElementById('notificationToast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        function showNotification(message, isError = false) {
+            toastMessage.textContent = message;
+            notificationToast.style.background = isError ? '#DC3545' : '#28A745';
+            notificationToast.classList.add('show');
+            setTimeout(() => { notificationToast.classList.remove('show'); }, 3000);
+        }
+
+        function openPortal() {
+            portalOverlay.classList.add('active');
+            if (portalEmail) portalEmail.value = '';
+            if (portalPassword) portalPassword.value = '';
+        }
+
+        function closePortalModal() {
+            portalOverlay.classList.remove('active');
+        }
+
+        function handlePortalLogin() {
+            const email = portalEmail?.value.trim();
+            const password = portalPassword?.value.trim();
+            if (!email || !password) {
+                showNotification('Please enter both email and password', true);
+                return;
+            }
+            if (email === 'student@nolan.edu' && password === 'password123') {
+                showNotification('Login successful! Redirecting to dashboard...');
+                setTimeout(() => {
+                    closePortalModal();
+                    window.open('#', '_blank');
+                }, 1500);
+            } else {
+                showNotification('Invalid credentials. Demo: student@nolan.edu / password123', true);
+            }
+        }
+
+        if (studentPortalBtn) studentPortalBtn.addEventListener('click', openPortal);
+        if (closePortal) closePortal.addEventListener('click', closePortalModal);
+        if (portalLoginBtn) portalLoginBtn.addEventListener('click', handlePortalLogin);
+        portalOverlay?.addEventListener('click', (e) => { if (e.target === portalOverlay) closePortalModal(); });
+
+        // Forgot password and create account links
+        const forgotPassword = document.getElementById('forgotPassword');
+        const createAccount = document.getElementById('createAccount');
+        if (forgotPassword) forgotPassword.addEventListener('click', (e) => { e.preventDefault(); showNotification('Password reset link sent to your email!'); });
+        if (createAccount) createAccount.addEventListener('click', (e) => { e.preventDefault(); showNotification('Account creation feature coming soon!'); });
+
+        // ========================================
+        // 5. Faculty & Staff Link
+        // ========================================
+        const facultyStaffBtn = document.getElementById('facultyStaffBtn');
+        if (facultyStaffBtn) {
+            facultyStaffBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showNotification('Faculty & Staff portal coming soon. Please check back later.');
+            });
+        }
+
+        // ========================================
+        // 6. Alumni Link
+        // ========================================
+        const alumniBtn = document.getElementById('alumniBtn');
+        if (alumniBtn) {
+            alumniBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showNotification('Alumni network portal coming soon. Stay connected!');
+            });
+        }
+
+        // ========================================
+        // 7. Smooth Scroll & Sticky Header
+        // ========================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === "#" || href === "" || href === "#") return;
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
-    }
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === "#" || href === "") return;
-            const target = document.querySelector(href);
-            if (target) {
-                e.preventDefault();
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
+
+        const header = document.querySelector('.main-header');
+        if (header) {
+            window.addEventListener('scroll', function() {
+                header.style.boxShadow = window.scrollY > 50 ? '0 4px 20px rgba(0,0,0,0.1)' : '0 2px 8px rgba(0,0,0,0.05)';
+            });
+        }
+
+        // ========================================
+        // 8. Animation on Scroll
+        // ========================================
+        const animateElements = document.querySelectorAll('.programme-card, .faculty-card, .exp-card, .news-card, .testimonial-card');
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        animateElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
         });
-    });
-    
-    // Sticky header shadow
-    const header = document.querySelector('.main-header');
-    if (header) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)';
-            }
+
+        // ========================================
+        // 9. Close mobile nav on link click
+        // ========================================
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('show');
+                if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
+            });
         });
-    }
-    
-    // Animation on scroll
-    const animateElements = document.querySelectorAll('.programme-card, .faculty-card, .exp-card, .news-card, .testimonial-card');
-    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-    
-    // Close mobile nav when clicking a link
-    const mobileLinks = document.querySelectorAll('.mobile-nav a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileNav.classList.remove('show');
-            if (menuBtn) menuBtn.setAttribute('aria-expanded', 'false');
-        });
-    });
-    
-    // Update copyright year
-    const yearSpan = document.querySelector('.footer-bottom p');
-    if (yearSpan) {
-        const currentYear = new Date().getFullYear();
-        yearSpan.innerHTML = yearSpan.innerHTML.replace('2025', currentYear);
-    }
-    
-    console.log('Jessica School of Wealth Creation & Law — Where Wealth Is Created & Protected');
-    console.log('Named for Jessica — from the Hebrew Yiskah, meaning "to behold," "to see clearly," "foresight"');
+
+        // ========================================
+        // 10. Update copyright year
+        // ========================================
+        const yearSpan = document.querySelector('.footer-bottom p');
+        if (yearSpan) {
+            yearSpan.innerHTML = yearSpan.innerHTML.replace('2025', new Date().getFullYear());
+        }
+
+        console.log('Jessica School of Wealth Creation & Law — Where Wealth Is Created & Protected');
+        console.log('Named for Jessica — from the Hebrew Yiskah, meaning "to behold," "to see clearly," "foresight"');
+    })();
 </script>
 
 </body>
-</html>
+    </html>
